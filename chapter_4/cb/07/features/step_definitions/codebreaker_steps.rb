@@ -1,4 +1,4 @@
-class Output
+class Result
   def messages
     @messages ||= []
   end
@@ -8,17 +8,18 @@ class Output
   end
 end
 
-def output
-  @output ||= Output.new
+def result
+  @result ||= Result.new
 end
 
 Given(/^I am not yet playing$/) do
 end
 
 When(/^I start a new game$/) do
-  Codebreaker::Game.new(output)
+  game = Codebreaker::Game.new(result)
+  game.start
 end
 
-Then(/^I should see "([^"]*)"$/) do |message|
-  output.messages.should include(message)
+Then(/^I should see "([^"]*)"$/)do |message|
+  expect(result.messages).to include(message)
 end
